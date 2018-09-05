@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[6]:
-
-
 import pandas as pd 
 import numpy as np
 import matplotlib as plt
@@ -20,16 +14,7 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 # To Do:
 # - Find the correct paths to the training set and testing set
 # - Define two seperate paths to the images within these folders
-
-# In[1]:
-
-
 get_ipython().system(u'ls')
-
-
-# In[10]:
-
-
 PATH = 'data/'
 get_ipython().system(u'ls {PATH}')
 
@@ -41,19 +26,11 @@ get_ipython().system(u'ls {PATH}')
 # - Define an ImageDataGenerater with different parameters
 # - Find an image that you want to augment and convert to an array
 # - Use a for loop and your generator to generate the augmented images
-
-# In[12]:
-
-
 datagen = ImageDataGenerator(rotation_range = 40, rescale = 1. / 255, horizontal_flip = True)
 
 img = load_img(PATH + 'Train/cats/0.jpg')
 x = img_to_array(img)
 x = x.reshape((1,) + x.shape)
-
-
-# In[13]:
-
 
 i = 0
 for batch in datagen.flow(x, batch_size = 1, save_to_dir = PATH + 'preview', save_format = 'jpeg'):
@@ -69,19 +46,11 @@ for batch in datagen.flow(x, batch_size = 1, save_to_dir = PATH + 'preview', sav
 # - Build an image generator like we did previously but for both the training data and validation data
 # - Build a training generator and a validation generator using the images from the image generators we made
 # - Train the same model again with the new images
-
-# In[15]:
-
-
 train_datagen = ImageDataGenerator(rescale = 1. / 255)
 valid_datagen = ImageDataGenerator(rescale = 1. / 255)
 
 train_datagen_2 = ImageDataGenerator(rotation_range = 40, rescale = 1. / 255, horizontal_flip = True)
 valid_datagen_2 = ImageDataGenerator(rescale = 1. / 255)
-
-
-# In[16]:
-
 
 train_datagenerator = train_datagen.flow_from_directory(PATH + 'Train', 
                                                        target_size = (150, 150),
@@ -111,10 +80,6 @@ valid_generator_2 = valid_datagen_2.flow_from_directory(PATH + 'Train',
 # - Build a Sequential model with multiple layers
 # - Compile the built model
 # - Train the model
-
-# In[23]:
-
-
 data_format = 'channels_first'
 
 model = Sequential()
@@ -131,19 +96,12 @@ model.add(Convolution2D(64, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(data_format = data_format, pool_size = (2, 2)))
 
-
-# In[24]:
-
-
 model.add(Flatten())
 model.add(Dense(64))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
-
-
-# In[ ]:
 
 
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
