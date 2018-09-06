@@ -9,7 +9,9 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 
 
 # ## Define Paths to the Image Data
-# As we are working with images and not a dataset we only need to define the paths to the images. When working with just images we sometimes need to split the images further into seperate folders which will be defined as classes or labels later on.
+# As we are working with images and not a dataset we only need to define the paths to the images. 
+# When working with just images we sometimes need to split the images further into seperate folders 
+# which will be defined as classes or labels later on.
 # 
 # To Do:
 # - Find the correct paths to the training set and testing set
@@ -20,7 +22,8 @@ get_ipython().system(u'ls {PATH}')
 
 
 # ## Data Augmentation Example
-# Here we are gonna augent one of our images and put it in a folder called preview. This stage is to only show you how to go about augmenting your data with keras. Later we will use to hopefully improve our model. 
+# Here we are gonna augent one of our images and put it in a folder called preview. This stage is to 
+# only show you how to go about augmenting your data with keras. Later we will use to hopefully improve our model. 
 # 
 # To Do:
 # - Define an ImageDataGenerater with different parameters
@@ -40,12 +43,16 @@ for batch in datagen.flow(x, batch_size = 1, save_to_dir = PATH + 'preview', sav
 
 
 # ## Augment the Images
-# Now that we have seen what the accuracy of our model before adding any extra data we will now augment the images to provide extra variations of our images. This will also help generalise our model so it doesn't overfit on our training data. We only want to add these variations to the training data and not the validation. 
+# Now that we have seen what the accuracy of our model before adding any extra data we will now 
+# augment the images to provide extra variations of our images. This will also help generalise our 
+# model so it doesn't overfit on our training data. We only want to add these variations to the 
+# training data and not the validation. 
 # 
 # To Do:
 # - Build an image generator like we did previously but for both the training data and validation data
 # - Build a training generator and a validation generator using the images from the image generators we made
 # - Train the same model again with the new images
+# normalise the pixel value to a number between 0 - 1
 train_datagen = ImageDataGenerator(rescale = 1. / 255)
 valid_datagen = ImageDataGenerator(rescale = 1. / 255)
 
@@ -57,7 +64,7 @@ train_datagenerator = train_datagen.flow_from_directory(PATH + 'Train',
                                                        batch_size = 16,
                                                        class_mode = 'binary')
 
-valid_datagenerator = train_datagen.flow_from_directory(PATH + 'Test', 
+valid_datagenerator = valid_datagen.flow_from_directory(PATH + 'Test', 
                                                        target_size = (150, 150),
                                                        batch_size = 16,
                                                        class_mode = 'binary')
@@ -74,7 +81,9 @@ valid_generator_2 = valid_datagen_2.flow_from_directory(PATH + 'Train',
 
 
 # ## Build the Model
-# With a set of images very little work has to be done before the model is created and trained. However, when we model first the likelihood of getting a high accuracy is low unless we make use of a pre-trained model with specified weights. This is not a bad thing though!
+# With a set of images very little work has to be done before the model is created and trained. 
+# However, when we model first the likelihood of getting a high accuracy is low unless we make 
+# use of a pre-trained model with specified weights. This is not a bad thing though!
 # 
 # To Do: 
 # - Build a Sequential model with multiple layers
