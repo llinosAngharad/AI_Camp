@@ -11,7 +11,9 @@ from sklearn.model_selection import GridSearchCV
 
 
 # ## Load the Dataset
-# Similar to our method in the MNIST tutorial we are going to be loading our data from sklearn's selection of datasets. Specifically the 20 news group dataset. Because we are using sklearn's datasets we can use functions of that import to immediately get training and validation data. 
+# Similar to our method in the MNIST tutorial we are going to be loading our data from sklearn's 
+# selection of datasets. Specifically the 20 news group dataset. Because we are using sklearn's 
+# datasets we can use functions of that import to immediately get training and validation data. 
 # 
 # To Do:
 # - Assign both a training subset and validation subset
@@ -31,41 +33,30 @@ twenty_train.data[0]
 
 
 # ## Extract the Features
-# We will need to convert the text files in numerical feature vectors so we can perform machine learning. For this we will be specifically be using what is know as a bag of words. A bag of words breaks down the text file into the words that it is made of splitting them by space. The bag of words will store the amount of times that particular word occurs and assign the word a unique value. 
+# We will need to convert the text files in numerical feature vectors so we can perform machine 
+# learning. For this we will be specifically be using what is know as a bag of words. A bag of 
+# words breaks down the text file into the words that it is made of splitting them by space. 
+# The bag of words will store the amount of times that particular word occurs and assign the word a unique value. 
 # 
 # To Do:
 # - Assign a CountVectorizer
 # - Transform the training data.
-# - Reduce the weights of common words using TF-IDF
+# - Reduce (normalise) the weights of common words using TF-IDF
 
 count_vect = CountVectorizer()
-
-
+# Counts the number of times the word occurs
 x_train_count = count_vect.fit_transform(twenty_train.data)
 
-
-x_train_count.data[:20]
-
-
 tfidf_transformer = TfidfTransformer()
-
-
+# Normalises, in effect, the count
 x_train_tfidf = tfidf_transformer.fit_transform(x_train_count)
 
-
-x_train_tfidf.data[:20]
-
-
 x_test_count = count_vect.fit_transform(twenty_test.data)
-
-
 x_test_tfidf = tfidf_transformer.fit_transform(x_test_count)
 
-
-x_test_tfidf.data[:20]
-
-
+# Train a Bayes Net
 clf = MultinomialNB().fit(x_train_tfidf, twenty_train.target)
+# Classify the test data
 clf.score(x_test_tfidf, twenty_test.target)
 
 
@@ -88,7 +79,8 @@ np.mean(predictions == twenty_test.target)
 
 
 # ## Train and Predict with Support Vector Machines
-# A Support Vector Machine (SVM) is a supervised learning algorithm used for classification and regression. It is most commonly used for classification problems. 
+# A Support Vector Machine (SVM) is a supervised learning algorithm used for classification 
+# and regression. It is most commonly used for classification problems. 
 # 
 # To Do:
 # - Create another pipeline object which uses a SVM (SGDClassifier)
@@ -106,7 +98,8 @@ np.mean(predictions == twenty_test.target)
 
 
 # ## Tune Performance
-# To increase the performance of our models we can use a grid search tool also apart of sklearn which lets us fine tune our models with specific parameters. 
+# To increase the performance of our models we can use a grid search tool also apart of 
+# sklearn which lets us fine tune our models with specific parameters. 
 # 
 # To Do:
 # - Define the parameters you want to use.
