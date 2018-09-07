@@ -34,7 +34,9 @@ sns.countplot(x = 'Sentiment', data = tweets)
 
 
 # ## Tokenise
-# We are going to use tokenisation to find the 2000 most common words. Tokenising is used on a sequence of words (basically a sentence) to count their frequency. A *token* is an instance of a sequence of characters (basically a word). A type is the class of all tokens containing the same character sequence.
+# We are going to use tokenisation to find the 2000 most common words. Tokenising is used on a 
+# sequence of words (basically a sentence) to count their frequency. A *token* is an instance of 
+# a sequence of characters (basically a word). A type is the class of all tokens containing the same character sequence.
 # 
 # To Do:
 # - Define the max features
@@ -92,7 +94,8 @@ print(model.summary())
 
 
 # ## Split the Data and Train
-# Again we need to split the data so we have testing data and validation data to work with. The easiest way to do this is to make use of the scikit-learn library's function train_test_split.
+# Again we need to split the data so we have testing data and validation data to work with. 
+# The easiest way to do this is to make use of the scikit-learn library's function train_test_split.
 # 
 # To Do:
 # - Train the model with the data you have just organised
